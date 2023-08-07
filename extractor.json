@@ -1,0 +1,313 @@
+{
+    "extractors": [
+      {
+        "title": "ip-common-data",
+        "extractor_type": "regex",
+        "converters": [
+          {
+            "type": "csv",
+            "config": {
+              "column_header": "rule-number,sub-rule-number,anchor,tracker,real-interface,reason,action,direction,ip-version"
+            }
+          }
+        ],
+        "order": 0,
+        "cursor_strategy": "copy",
+        "source_field": "message",
+        "target_field": "ip_common_data",
+        "extractor_config": {
+          "regex_value": "^(([^,]*,){8}([^,]*)),"
+        },
+        "condition_type": "regex",
+        "condition_value": "^(([^,]*,){8}([^,]*)),"
+      },
+      {
+        "title": "ip-specific-data",
+        "extractor_type": "regex",
+        "converters": [],
+        "order": 0,
+        "cursor_strategy": "copy",
+        "source_field": "message",
+        "target_field": "ip_specific_data",
+        "extractor_config": {
+          "regex_value": "^(?:[^,]*,){9}(.+)"
+        },
+        "condition_type": "regex",
+        "condition_value": "^(?:[^,]*,){9}(.+)"
+      },
+      {
+        "title": "ipv4-specific-data",
+        "extractor_type": "regex",
+        "converters": [
+          {
+            "type": "csv",
+            "config": {
+              "column_header": "tos,ecn,ttl,id,offset,flags,protocol-id,protocol-text"
+            }
+          }
+        ],
+        "order": 0,
+        "cursor_strategy": "copy",
+        "source_field": "message",
+        "target_field": "ipv4_specific_data",
+        "extractor_config": {
+          "regex_value": "^(?:[^,]*,){9}([^,]+(?:,[^,]*+){7})"
+        },
+        "condition_type": "regex",
+        "condition_value": "^(?:[^,]*,){8}4,(.+)"
+      },
+      {
+        "title": "ipv6-specific-data",
+        "extractor_type": "regex",
+        "converters": [
+          {
+            "type": "csv",
+            "config": {
+              "column_header": "class,flow-label,hop-limit,protocol-text,protocol-id"
+            }
+          }
+        ],
+        "order": 0,
+        "cursor_strategy": "copy",
+        "source_field": "message",
+        "target_field": "ipv6_specific_data",
+        "extractor_config": {
+          "regex_value": "^(?:[^,]*,){9}([^,]+(?:,[^,]*+){4})"
+        },
+        "condition_type": "regex",
+        "condition_value": "^(?:[^,]*,){8}6,(.+)"
+      },
+      {
+        "title": "ip-data",
+        "extractor_type": "regex",
+        "converters": [
+          {
+            "type": "csv",
+            "config": {
+              "column_header": "length,source-address,destination-address"
+            }
+          }
+        ],
+        "order": 0,
+        "cursor_strategy": "copy",
+        "source_field": "message",
+        "target_field": "ip_data",
+        "extractor_config": {
+          "regex_value": "^(?:[^,]*,){17}([^,]+(?:,[^,]*+){2})"
+        },
+        "condition_type": "regex",
+        "condition_value": "^(?:[^,]*,){8}4,(.+)"
+      },
+      {
+        "title": "tcp-data",
+        "extractor_type": "regex",
+        "converters": [
+          {
+            "type": "csv",
+            "config": {
+              "column_header": "source-port,destination-port,data-length,tcp-flags,sequence-number,ack-number,tcp-window,urg,tcp-options"
+            }
+          }
+        ],
+        "order": 0,
+        "cursor_strategy": "copy",
+        "source_field": "message",
+        "target_field": "tcp_data",
+        "extractor_config": {
+          "regex_value": "^(?:[^,]*,){20}([^,]+(?:,[^,]*+){8})"
+        },
+        "condition_type": "regex",
+        "condition_value": "^(?:[^,]*,){16}tcp,(.+)"
+      },
+      {
+        "title": "udp-data",
+        "extractor_type": "regex",
+        "converters": [
+          {
+            "type": "csv",
+            "config": {
+              "column_header": "source-port,destination-port,data-length"
+            }
+          }
+        ],
+        "order": 0,
+        "cursor_strategy": "copy",
+        "source_field": "message",
+        "target_field": "udp_data",
+        "extractor_config": {
+          "regex_value": "^(?:[^,]*,){20}([^,]+(?:,[^,]*+){2})"
+        },
+        "condition_type": "regex",
+        "condition_value": "^(?:[^,]*,){16}udp,(.+)"
+      },
+      {
+        "title": "carp-data",
+        "extractor_type": "regex",
+        "converters": [
+          {
+            "type": "csv",
+            "config": {
+              "column_header": "carp-type,carp-ttl,vhid,version,advbase,advskew"
+            }
+          }
+        ],
+        "order": 0,
+        "cursor_strategy": "copy",
+        "source_field": "message",
+        "target_field": "carp_data",
+        "extractor_config": {
+          "regex_value": "^(?:[^,]*,){20}([^,]+(?:,[^,]*+){5})"
+        },
+        "condition_type": "regex",
+        "condition_value": "^(?:[^,]*,){16}carp,(.+)"
+      },
+      {
+        "title": "echo-data",
+        "extractor_type": "regex",
+        "converters": [
+          {
+            "type": "csv",
+            "config": {
+              "column_header": "icmp-id,icmp-sequence"
+            }
+          }
+        ],
+        "order": 0,
+        "cursor_strategy": "copy",
+        "source_field": "message",
+        "target_field": "echo_data",
+        "extractor_config": {
+          "regex_value": "^(?:[^,]*,){21}([^,]+(?:,[^,]*+){1})"
+        },
+        "condition_type": "regex",
+        "condition_value": "^([^,]*,){20}request"
+      },
+      {
+        "title": "unreachport-data",
+        "extractor_type": "regex",
+        "converters": [
+          {
+            "type": "csv",
+            "config": {
+              "column_header": "icmp-destination-ip-address,unreachable-protocol-id"
+            }
+          }
+        ],
+        "order": 0,
+        "cursor_strategy": "copy",
+        "source_field": "message",
+        "target_field": "unreachproto_data",
+        "extractor_config": {
+          "regex_value": "^(?:[^,]*,){21}([^,]+(?:,[^,]*+){1})"
+        },
+        "condition_type": "regex",
+        "condition_value": "^([^,]*,){20}unreachproto"
+      },
+      {
+        "title": "unreachport-data",
+        "extractor_type": "regex",
+        "converters": [
+          {
+            "type": "csv",
+            "config": {
+              "column_header": "icmp-destination-ip-address,unreachable-protocol-id,unreachable-port-number"
+            }
+          }
+        ],
+        "order": 0,
+        "cursor_strategy": "copy",
+        "source_field": "message",
+        "target_field": "unreachport_data",
+        "extractor_config": {
+          "regex_value": "^(?:[^,]*,){21}([^,]+(?:,[^,]*+){2})"
+        },
+        "condition_type": "regex",
+        "condition_value": "^([^,]*,){20}unreachport"
+      },
+      {
+        "title": "needfrag-data",
+        "extractor_type": "regex",
+        "converters": [
+          {
+            "type": "csv",
+            "config": {
+              "column_header": "icmp-destination-ip-address,icmp-mtu"
+            }
+          }
+        ],
+        "order": 0,
+        "cursor_strategy": "copy",
+        "source_field": "message",
+        "target_field": "needfrag_data",
+        "extractor_config": {
+          "regex_value": "^(?:[^,]*,){21}([^,]+(?:,[^,]*+){1})"
+        },
+        "condition_type": "regex",
+        "condition_value": "^([^,]*,){20}needfrag"
+      },
+      {
+        "title": "tstamp-data",
+        "extractor_type": "regex",
+        "converters": [
+          {
+            "type": "csv",
+            "config": {
+              "column_header": "icmp-id,icmp-sequence"
+            }
+          }
+        ],
+        "order": 0,
+        "cursor_strategy": "copy",
+        "source_field": "message",
+        "target_field": "tstamp_data",
+        "extractor_config": {
+          "regex_value": "^(?:[^,]*,){21}([^,]+(?:,[^,]*+){1})"
+        },
+        "condition_type": "regex",
+        "condition_value": "^([^,]*,){20}tstamp"
+      },
+      {
+        "title": "tstampreply-data",
+        "extractor_type": "regex",
+        "converters": [
+          {
+            "type": "csv",
+            "config": {
+              "column_header": "icmp-id,icmp-sequence,icmp-otime,icmp-rtime,icmp-ttime"
+            }
+          }
+        ],
+        "order": 0,
+        "cursor_strategy": "copy",
+        "source_field": "message",
+        "target_field": "tstampreply_data",
+        "extractor_config": {
+          "regex_value": "^(?:[^,]*,){21}([^,]+(?:,[^,]*+){4})"
+        },
+        "condition_type": "regex",
+        "condition_value": "^([^,]*,){20}tstampreply"
+      },
+      {
+        "title": "other-unreachable-data",
+        "extractor_type": "regex",
+        "converters": [
+          {
+            "type": "csv",
+            "config": {
+              "column_header": "icmp-description"
+            }
+          }
+        ],
+        "order": 0,
+        "cursor_strategy": "copy",
+        "source_field": "message",
+        "target_field": "other_unreachable_data",
+        "extractor_config": {
+          "regex_value": "^(?:[^,]*,){21}(.+)"
+        },
+        "condition_type": "regex",
+        "condition_value": "^([^,]*,){20}(timexceed|unreach|paramprob|redirect|maskreply)"
+      }
+    ],
+    "version": "5.1.4"
+  }
