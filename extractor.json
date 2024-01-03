@@ -309,5 +309,5 @@
         "condition_value": "^([^,]*,){20}(timexceed|unreach|paramprob|redirect|maskreply)"
       }
     ],
-    "version": "5.1.4"
+    "version": "5.2.2"
   }
