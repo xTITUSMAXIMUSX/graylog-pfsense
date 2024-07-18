@@ -307,21 +307,7 @@
       },
       "condition_type": "regex",
       "condition_value": "^([^,]*,){20}(timexceed|unreach|paramprob|redirect|maskreply)"
-    },
-    {
-      "title": "Service port lookup",
-      "extractor_type": "lookup_table",
-      "converters": [],
-      "order": 0,
-      "cursor_strategy": "copy",
-      "source_field": "destination-port",
-      "target_field": "service_port",
-      "extractor_config": {
-        "lookup_table_name": "port_map_tcp"
-      },
-      "condition_type": "none",
-      "condition_value": ""
     }
   ],
-  "version": "6.0.2"
+  "version": "6.0.4"
 }
