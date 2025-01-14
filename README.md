@@ -1,5 +1,5 @@
 # graylog-pfsense Extractor
-This extractor is built for pfSense `24.03` and Graylog `6.0.4`
+This extractor is built for pfSense `24.11` and Graylog `6.1.3`
 
 # Usage
 Note: You need to use this with the `syslog RFC 5424 with RFC 3339` set on your pfSense
